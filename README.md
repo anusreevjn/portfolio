@@ -52,6 +52,7 @@ All motion respects the system "reduce motion" setting, and the 3D scene stops r
 
 ## Deploy
 
+- GitHub Pages: in the repo go to Settings, Pages, and set Source to "GitHub Actions". Every push to `main` then builds the site and publishes it with `.github/workflows/deploy.yml`. Do not publish the repo root directly; the browser cannot run the source files.
 - Netlify: import this repo. `netlify.toml` already sets `npm run build` and `dist`.
 - Hostinger or any static host: run `npm run build` and upload the contents of `dist`. Paths are relative, so it also works from a subfolder.
 
