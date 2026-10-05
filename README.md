@@ -46,6 +46,9 @@ The Project 1 case study outline appears inside its details popup as soon as `ca
 - Background: a full-page particle field with cursor magnetism and constellation lines that light up near the pointer, plus parallax on scroll.
 - Contact: an "AV" monogram drawn in particles that scatter from the cursor, burst on click and re-form.
 - Stack: a draggable 3D tag sphere of every technology.
+- Services: glossy 3D shapes lit in the site colours that tilt with the cursor.
+- Play: "Squash the Bugs", a mini game where bugs crawl toward production and you tap them before they arrive. Combos, gold bugs and a saved best score.
+- Light and dark mode: the sun/moon button in the navbar switches themes. The first visit follows the system setting, and the choice is remembered.
 - Also: preloader, custom cursor, magnetic buttons, glow and tilt cards, scroll reveals, a scroll-drawn experience timeline and a scroll progress bar.
 
 All motion respects the system "reduce motion" setting, and the 3D scene stops rendering when it is off screen.

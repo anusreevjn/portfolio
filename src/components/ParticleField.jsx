@@ -1,14 +1,16 @@
 import { useEffect, useRef } from "react";
 
-const COLORS = ["94, 234, 212", "129, 140, 248", "244, 114, 182", "238, 242, 255"];
+const DARK = ["46, 230, 214", "139, 92, 246", "255, 95, 162", "255, 197, 61", "238, 242, 255"];
+const LIGHT = ["10, 167, 156", "124, 58, 237", "226, 59, 132", "212, 138, 0"];
 
-export default function ParticleField({ reduced = false }) {
+export default function ParticleField({ reduced = false, theme = "dark" }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
     const ctx = canvas.getContext("2d");
+    const COLORS = theme === "light" ? LIGHT : DARK;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
     let w = 0;
@@ -114,7 +116,7 @@ export default function ParticleField({ reduced = false }) {
               const md = Math.hypot((ax + bx) / 2 - mouse.x, (ay + by) / 2 - mouse.y);
               if (md < reach) alpha += (1 - md / reach) * 0.35 * (1 - d / link);
             }
-            ctx.strokeStyle = `rgba(129, 140, 248, ${alpha})`;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(ax, ay);
@@ -125,7 +127,7 @@ export default function ParticleField({ reduced = false }) {
         if (mouse.active) {
           const md = Math.hypot(ax - mouse.x, ay - mouse.y);
           if (md < reach * 0.85) {
-            ctx.strokeStyle = `rgba(94, 234, 212, ${(1 - md / (reach * 0.85)) * 0.4})`;
+            ctx.strokeStyle = `rgba(46, 230, 214, ${(1 - md / (reach * 0.85)) * 0.4})`;
             ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(ax, ay);
@@ -183,7 +185,7 @@ export default function ParticleField({ reduced = false }) {
       window.removeEventListener("pointercancel", onUp);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [reduced]);
+  }, [reduced, theme]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-0" />;
 }

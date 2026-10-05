@@ -1,21 +1,34 @@
+import { Suspense, lazy } from "react";
 import { services } from "../data/content";
 import SectionHeading from "../components/SectionHeading";
 import Icon from "../components/Icon";
 import { useGlow } from "../hooks/useGlow";
 
-const accents = ["text-teal", "text-indigo", "text-pink", "text-amber"];
+const Floating3D = lazy(() => import("../three/Floating3D"));
 
-export default function Services() {
+const accents = ["text-teal", "text-indigo", "text-pink", "text-amber"];
+const glows = ["rgba(46,230,214,0.22)", "rgba(139,92,246,0.25)", "rgba(255,95,162,0.22)", "rgba(255,197,61,0.2)"];
+
+export default function Services({ reduced }) {
   const glow = useGlow();
   return (
     <section id="services" className="section">
       <div className="container-x">
-        <SectionHeading index="02" eyebrow="Services" title="What I Do" />
+        <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1fr_0.9fr]">
+          <SectionHeading index="02" eyebrow="Services" title="What I Do" />
+          <div className="reveal relative mx-auto -mt-6 mb-10 h-60 w-full max-w-lg sm:h-72 lg:mb-16 lg:mt-0 lg:h-80">
+            <div className="pointer-events-none absolute inset-[15%] rounded-full bg-indigo/25 blur-3xl" />
+            <Suspense fallback={null}>
+              <Floating3D className="relative h-full w-full" reduced={reduced} />
+            </Suspense>
+          </div>
+        </div>
         <div className="grid gap-5 md:grid-cols-2">
           {services.map((s, i) => (
             <article
               key={s.title}
               onMouseMove={glow}
+              style={{ "--glow": glows[i % glows.length] }}
               className="reveal glow-card glass group rounded-3xl p-7 transition-transform duration-500 hover:-translate-y-1 md:p-9"
             >
               <div className="flex items-start justify-between">

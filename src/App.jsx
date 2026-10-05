@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { setLenis } from "./lib/scroll";
 import { useFinePointer, useReducedMotion } from "./hooks/useMedia";
+import { useTheme } from "./hooks/useTheme";
 import Preloader from "./components/Preloader";
 import Cursor from "./components/Cursor";
 import ScrollProgress from "./components/ScrollProgress";
@@ -17,6 +18,7 @@ import Projects from "./sections/Projects";
 import Stack from "./sections/Stack";
 import Experience from "./sections/Experience";
 import Process from "./sections/Process";
+import Play from "./sections/Play";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 
@@ -25,6 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const reduced = useReducedMotion();
   const fine = useFinePointer();
+  const [theme] = useTheme();
   const [loading, setLoading] = useState(true);
   const done = useCallback(() => setLoading(false), []);
 
@@ -69,18 +72,24 @@ export default function App() {
       {loading ? <Preloader onDone={done} reduced={reduced} /> : null}
       {fine && !reduced ? <Cursor /> : null}
       <ScrollProgress />
-      <ParticleField reduced={reduced} />
+      <ParticleField reduced={reduced} theme={theme} />
+      <div className="aurora" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <div className="noise" aria-hidden="true" />
       <Navbar ready={!loading} />
       <main className="relative">
         <Hero ready={!loading} reduced={reduced} />
         <Numbers reduced={reduced} />
         <About />
-        <Services />
+        <Services reduced={reduced} />
         <Projects />
         <Stack reduced={reduced} />
         <Experience reduced={reduced} />
         <Process />
+        <Play />
         <Contact reduced={reduced} />
       </main>
       <Footer />

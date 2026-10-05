@@ -4,6 +4,7 @@ import { hero, links } from "../data/content";
 import { SHAPES } from "../three/shapes";
 import { scrollToId } from "../lib/scroll";
 import { useMediaQuery } from "../hooks/useMedia";
+import { useTheme } from "../hooks/useTheme";
 import Magnetic from "../components/Magnetic";
 import Icon from "../components/Icon";
 
@@ -16,6 +17,8 @@ export default function Hero({ ready, reduced }) {
   const [shape, setShape] = useState(0);
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const isSmall = useMediaQuery("(max-width: 640px)");
+  const isMid = useMediaQuery("(max-width: 1279px)");
+  const [theme] = useTheme();
 
   const onShape = useCallback((i) => setShape(i), []);
 
@@ -70,7 +73,7 @@ export default function Hero({ ready, reduced }) {
         <div className="absolute -right-20 bottom-0 h-[520px] w-[520px] rounded-full bg-indigo/15 blur-[140px]" />
       </div>
 
-      <div className={`absolute ${isMobile ? "inset-x-0 top-16 h-[60svh] opacity-60" : "right-0 top-0 h-full w-[58%]"}`}>
+      <div className={`absolute ${isMobile ? "inset-x-0 top-16 h-[60svh] opacity-50" : "right-0 top-0 h-full w-[46%] xl:w-[56%]"}`}>
         <div className="h-canvas h-full w-full opacity-0">
           <Suspense fallback={null}>
             <ParticleMorph
@@ -79,14 +82,15 @@ export default function Hero({ ready, reduced }) {
               control={control}
               onShape={onShape}
               reduced={reduced}
-              scale={isSmall ? 0.72 : isMobile ? 0.85 : 1}
+              theme={theme}
+              scale={isSmall ? 0.72 : isMobile ? 0.85 : isMid ? 0.82 : 1}
             />
           </Suspense>
         </div>
       </div>
 
       <div className="container-x relative">
-        <div className="h-copy max-w-2xl lg:max-w-[52%]">
+        <div className="h-copy max-w-2xl lg:max-w-[53%] xl:max-w-[50%]">
           <div className="h-badge glass inline-flex max-w-full items-start gap-3 rounded-2xl px-4 py-2.5 text-left text-xs leading-snug text-mist-200 opacity-0 sm:items-center sm:rounded-full sm:text-sm">
             <span className="pulse-dot mt-1 h-2 w-2 shrink-0 rounded-full bg-teal sm:mt-0" />
             <span>{hero.availability}</span>
@@ -100,12 +104,12 @@ export default function Hero({ ready, reduced }) {
             ))}
           </h1>
 
-          <p className="h-tag mt-6 text-xl font-medium text-mist-50 opacity-0 md:text-3xl">{hero.tagline}</p>
+          <p className="h-tag mt-6 text-xl font-medium text-mist-50 opacity-0 md:text-3xl lg:text-[1.7rem] xl:text-3xl">{hero.tagline}</p>
           <p className="h-sub mt-3 font-mono text-xs text-mist-400 opacity-0 md:text-sm">{hero.subline}</p>
 
           <p className="h-statement mt-8 max-w-xl text-base leading-relaxed text-mist-200 opacity-0 md:text-lg">{hero.statement}</p>
 
-          <div className="h-cta mt-10 flex flex-wrap items-center gap-3">
+          <div className="h-cta mt-10 flex flex-wrap items-center gap-x-3 gap-y-4">
             <Magnetic>
               <a
                 href="#projects"
@@ -144,7 +148,7 @@ export default function Hero({ ready, reduced }) {
           <button
             type="button"
             onClick={() => scrollToId("numbers")}
-            className="hidden items-center gap-3 text-xs text-mist-400 transition-colors hover:text-white sm:flex"
+            className="hidden items-center gap-3 text-xs text-mist-400 transition-colors hover:text-mist-50 sm:flex"
             aria-label="Scroll down"
           >
             <span className="flex h-9 w-5 justify-center rounded-full border border-mist-400/40 pt-1.5">
@@ -160,7 +164,7 @@ export default function Hero({ ready, reduced }) {
                 type="button"
                 onClick={() => pick(i)}
                 className={`rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors ${
-                  shape === i ? "border-teal/60 bg-teal/10 text-white" : "border-mist-400/20 text-mist-400 hover:text-white"
+                  shape === i ? "border-teal/60 bg-teal/10 text-mist-50" : "border-mist-400/20 text-mist-400 hover:text-mist-50"
                 }`}
                 aria-pressed={shape === i}
               >

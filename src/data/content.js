@@ -2,7 +2,6 @@ export const links = {
   email: "",
   linkedin: "",
   github: "",
-  discord: "@everettian",
   resume: "resume.pdf",
 };
 
@@ -13,6 +12,7 @@ export const navItems = [
   { id: "projects", label: "Projects" },
   { id: "stack", label: "Stack" },
   { id: "experience", label: "Experience" },
+  { id: "play", label: "Play" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -106,7 +106,7 @@ export const featuredProjects = [
     demoUrl: "",
     caseStudyUrl: "",
     githubUrl: "",
-    accent: ["#5eead4", "#818cf8"],
+    accent: ["#2ee6d6", "#8b5cf6"],
     visual: "ml",
   },
   {
@@ -132,7 +132,7 @@ export const featuredProjects = [
     demoUrl: "",
     caseStudyUrl: "",
     githubUrl: "",
-    accent: ["#818cf8", "#f472b6"],
+    accent: ["#8b5cf6", "#ff5fa2"],
     visual: "roles",
   },
   {
@@ -158,7 +158,7 @@ export const featuredProjects = [
     demoUrl: "",
     caseStudyUrl: "",
     githubUrl: "",
-    accent: ["#f472b6", "#fbbf24"],
+    accent: ["#ff5fa2", "#ffc53d"],
     visual: "mobile",
   },
   {
@@ -184,7 +184,7 @@ export const featuredProjects = [
     demoUrl: "",
     caseStudyUrl: "",
     githubUrl: "",
-    accent: ["#fbbf24", "#5eead4"],
+    accent: ["#ffc53d", "#2ee6d6"],
     visual: "chart",
   },
   {
@@ -228,7 +228,7 @@ export const featuredProjects = [
     demoUrl: "",
     caseStudyUrl: "",
     githubUrl: "",
-    accent: ["#22d3ee", "#818cf8"],
+    accent: ["#22d3ee", "#8b5cf6"],
     visual: "flow",
   },
 ];

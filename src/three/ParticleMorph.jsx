@@ -85,7 +85,7 @@ const ONE_HOT = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), new THR
 const HOLD = 4.6;
 const MORPH = 2.2;
 
-function Particles({ count, pointer, control, onShape, reduced, scale }) {
+function Particles({ count, pointer, control, onShape, reduced, scale, theme }) {
   const points = useRef();
   const { camera, gl } = useThree();
 
@@ -129,16 +129,16 @@ function Particles({ count, pointer, control, onShape, reduced, scale }) {
           uTo: { value: ONE_HOT[0].clone() },
           uT: { value: 0 },
           uTime: { value: 0 },
-          uSize: { value: 30 },
+          uSize: { value: 34 },
           uPixelRatio: { value: 1 },
           uHover: { value: 0 },
           uWobble: { value: 1 },
           uMouse: { value: new THREE.Vector3(99, 99, 99) },
           uPulseOrigin: { value: new THREE.Vector3() },
           uPulseTime: { value: 100 },
-          uColorA: { value: new THREE.Color("#5eead4") },
-          uColorB: { value: new THREE.Color("#818cf8") },
-          uColorC: { value: new THREE.Color("#f472b6") },
+          uColorA: { value: new THREE.Color("#2ee6d6") },
+          uColorB: { value: new THREE.Color("#8b5cf6") },
+          uColorC: { value: new THREE.Color("#ff5fa2") },
         },
       }),
     []
@@ -146,6 +146,15 @@ function Particles({ count, pointer, control, onShape, reduced, scale }) {
 
   useEffect(() => () => geometry.dispose(), [geometry]);
   useEffect(() => () => material.dispose(), [material]);
+  useEffect(() => {
+    const light = theme === "light";
+    const u = material.uniforms;
+    material.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+    u.uColorA.value.set(light ? "#0aa79c" : "#2ee6d6");
+    u.uColorB.value.set(light ? "#7c3aed" : "#8b5cf6");
+    u.uColorC.value.set(light ? "#e23b84" : "#ff5fa2");
+    material.needsUpdate = true;
+  }, [theme, material]);
 
   const state = useRef({ current: 0, next: 0, phase: "hold", since: 0 });
   const helpers = useMemo(
@@ -240,7 +249,7 @@ function Particles({ count, pointer, control, onShape, reduced, scale }) {
   return <points ref={points} geometry={geometry} material={material} frustumCulled={false} />;
 }
 
-export default function ParticleMorph({ count = 7000, onShape, control, reduced = false, scale = 1, className = "" }) {
+export default function ParticleMorph({ count = 7000, onShape, control, reduced = false, scale = 1, theme = "dark", className = "" }) {
   const wrap = useRef(null);
   const pointer = useRef({ x: 0, y: 0, inside: false, pulse: false });
   const frameloop = useRef("always");
@@ -303,7 +312,7 @@ export default function ParticleMorph({ count = 7000, onShape, control, reduced 
           setFrameloop.current = st.setFrameloop;
         }}
       >
-        <Particles count={count} pointer={pointer} control={control} onShape={onShape} reduced={reduced} scale={scale} />
+        <Particles count={count} pointer={pointer} control={control} onShape={onShape} reduced={reduced} scale={scale} theme={theme} />
       </Canvas>
     </div>
   );

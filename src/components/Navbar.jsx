@@ -3,11 +3,25 @@ import gsap from "gsap";
 import { links, navItems } from "../data/content";
 import { scrollToId, getLenis } from "../lib/scroll";
 import Icon from "./Icon";
+import { useTheme } from "../hooks/useTheme";
 
 export default function Navbar({ ready }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
+  const [theme, toggleTheme] = useTheme();
+  const themeLabel = theme === "light" ? "Switch to dark mode" : "Switch to light mode";
+  const themeButton = (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="grad-border flex h-10 w-10 items-center justify-center rounded-full bg-ink-900 text-mist-50 transition-transform hover:rotate-12"
+      aria-label={themeLabel}
+      title={themeLabel}
+    >
+      <Icon name={theme === "light" ? "moon" : "sun"} className="h-[18px] w-[18px]" />
+    </button>
+  );
   const header = useRef(null);
   const menu = useRef(null);
 
@@ -82,13 +96,13 @@ export default function Navbar({ ready }) {
             <span className="hidden text-sm font-semibold tracking-tight text-mist-50 sm:block">Anusree Vijayan</span>
           </a>
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Primary">
             {navItems.map((n) => (
               <a
                 key={n.id}
                 href={`#${n.id}`}
                 onClick={go(n.id)}
-                className={`underline-grow text-sm transition-colors ${active === n.id ? "active text-white" : "text-mist-200 hover:text-white"}`}
+                className={`underline-grow text-sm transition-colors ${active === n.id ? "active text-mist-50" : "text-mist-200 hover:text-mist-50"}`}
               >
                 {n.label}
               </a>
@@ -97,17 +111,21 @@ export default function Navbar({ ready }) {
               Resume
               <Icon name="arrowUpRight" className="h-4 w-4" />
             </a>
+            {themeButton}
           </nav>
 
-          <button
-            type="button"
-            className="grad-border flex h-11 w-11 items-center justify-center rounded-full bg-ink-900 lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            <Icon name={open ? "close" : "menu"} className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            {themeButton}
+            <button
+              type="button"
+              className="grad-border flex h-11 w-11 items-center justify-center rounded-full bg-ink-900"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+            >
+              <Icon name={open ? "close" : "menu"} className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -119,7 +137,7 @@ export default function Navbar({ ready }) {
                 key={n.id}
                 href={`#${n.id}`}
                 onClick={go(n.id)}
-                className={`m-item flex items-baseline gap-4 border-b border-mist-400/10 py-3 text-3xl font-semibold ${active === n.id ? "text-white" : "text-mist-200"}`}
+                className={`m-item flex items-baseline gap-4 border-b border-mist-400/10 py-3 text-3xl font-semibold ${active === n.id ? "text-mist-50" : "text-mist-200"}`}
               >
                 <span className="font-mono text-xs text-teal">{String(i + 1).padStart(2, "0")}</span>
                 {n.label}
@@ -130,7 +148,6 @@ export default function Navbar({ ready }) {
               Resume
             </a>
           </nav>
-          <p className="m-item font-mono text-xs text-mist-400">Discord {links.discord}</p>
         </div>
       ) : null}
     </>

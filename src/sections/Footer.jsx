@@ -9,7 +9,7 @@ export default function Footer() {
         <button
           type="button"
           onClick={() => scrollToId("home")}
-          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-mist-400 transition-colors hover:text-white"
+          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-mist-400 transition-colors hover:text-mist-50"
         >
           Back to top
           <span className="flex h-8 w-8 items-center justify-center rounded-full border border-mist-400/20 transition-colors group-hover:border-teal/60">

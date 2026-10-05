@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
 const PALETTE = [
-  [94, 234, 212],
-  [129, 140, 248],
-  [244, 114, 182],
+  [46, 230, 214],
+  [139, 92, 246],
+  [255, 95, 162],
 ];
 
 function mixColor(t) {

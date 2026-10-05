@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { contact, links } from "../data/content";
 import ParticleText from "../components/ParticleText";
 import Magnetic from "../components/Magnetic";
@@ -6,7 +5,6 @@ import Icon from "../components/Icon";
 import { useGlow } from "../hooks/useGlow";
 
 export default function Contact({ reduced }) {
-  const [copied, setCopied] = useState(false);
   const glow = useGlow();
 
   const channels = [
@@ -15,16 +13,6 @@ export default function Contact({ reduced }) {
     links.github ? { icon: "github", label: "GitHub", value: links.github.replace(/^https?:\/\/(www\.)?/, ""), href: links.github } : null,
     links.resume ? { icon: "file", label: "Resume", value: "Download PDF", href: links.resume } : null,
   ].filter(Boolean);
-
-  const copyDiscord = async () => {
-    try {
-      await navigator.clipboard.writeText(links.discord);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   return (
     <section id="contact" className="section">
@@ -36,7 +24,7 @@ export default function Contact({ reduced }) {
           <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="min-w-0">
               <p className="reveal eyebrow flex items-center gap-3">
-                <span className="text-teal">07</span>
+                <span className="text-teal">08</span>
                 <span className="h-px w-10 bg-mist-400/40" />
                 <span>Contact</span>
               </p>
@@ -75,27 +63,9 @@ export default function Contact({ reduced }) {
                   <span className="block text-xs text-mist-400">{c.label}</span>
                   <span className="block truncate text-sm font-medium text-mist-50">{c.value}</span>
                 </span>
-                <Icon name="arrowUpRight" className="ml-auto h-4 w-4 shrink-0 text-mist-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                <Icon name="arrowUpRight" className="ml-auto h-4 w-4 shrink-0 text-mist-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-mist-50" />
               </a>
             ))}
-            <button
-              type="button"
-              onClick={copyDiscord}
-              onMouseMove={glow}
-              className="reveal glow-card group flex items-center gap-4 rounded-2xl border border-mist-400/10 bg-ink-950/50 p-5 text-left transition-colors hover:border-teal/40"
-              aria-label={`Copy Discord username ${links.discord}`}
-            >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink-800 text-teal">
-                <Icon name="discord" className="h-5 w-5" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-xs text-mist-400">Discord</span>
-                <span className="block truncate text-sm font-medium text-mist-50">{links.discord}</span>
-              </span>
-              <span className="ml-auto shrink-0 text-mist-400 group-hover:text-white" aria-live="polite">
-                {copied ? <Icon name="check" className="h-4 w-4 text-teal" /> : <Icon name="copy" className="h-4 w-4" />}
-              </span>
-            </button>
           </div>
         </div>
       </div>
