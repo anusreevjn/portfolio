@@ -7,12 +7,11 @@ Built with React, Vite, Tailwind CSS v4, Three.js (React Three Fiber), GSAP Scro
 ## Run locally
 
 ```bash
-cd portfolio
 npm install
 npm run dev
 ```
 
-Production build goes to `portfolio/dist`:
+Production build goes to `dist`:
 
 ```bash
 npm run build
@@ -53,7 +52,7 @@ All motion respects the system "reduce motion" setting, and the 3D scene stops r
 
 ## Deploy
 
-- Netlify: set the base directory to `portfolio`. `netlify.toml` already sets `npm run build` and `dist`.
+- Netlify: import this repo. `netlify.toml` already sets `npm run build` and `dist`.
 - Hostinger or any static host: run `npm run build` and upload the contents of `dist`. Paths are relative, so it also works from a subfolder.
 
 ## Credits
